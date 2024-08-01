@@ -175,4 +175,5 @@ src/main.o: src/main.cpp include/glad/glad.h include/KHR/khrplatform.h \
  include/glm/gtc/../gtc/../ext/vector_int1_sized.hpp \
  include/glm/gtc/../gtc/../ext/vector_uint1.hpp \
  include/glm/gtc/../gtc/../ext/vector_uint1_sized.hpp \
- include/glm/gtc/type_ptr.inl include/stb_image.h src/shader_s.h
+ include/glm/gtc/type_ptr.inl include/stb_image.h src/shader_s.h \
+ src/camera.h
