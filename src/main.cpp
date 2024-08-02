@@ -33,6 +33,8 @@ bool firstMouse = true;
 float deltaTime = 0.0f;	// time between current frame and last frame
 float lastFrame = 0.0f;
 
+// lighting
+glm::vec3 lightPos(1.2f, 1.0f, 2.0f);
 
 int main()
 {
@@ -211,6 +213,9 @@ int main()
         objectShader.setVec3("light.ambient", 0.2f, 0.2f, 0.2f); 
         objectShader.setVec3("light.diffuse", 0.5f, 0.5f, 0.5f);
         objectShader.setVec3("light.specular", 1.0f, 1.0f, 1.0f);
+        objectShader.setFloat("light.constant", 1.0f);
+        objectShader.setFloat("light.linear", 0.09f);
+        objectShader.setFloat("light.quadratic", 0.032f);
 
         // material properties
         objectShader.setFloat("material.shininess", 32.0f);
@@ -232,9 +237,6 @@ int main()
         glActiveTexture(GL_TEXTURE1);
         glBindTexture(GL_TEXTURE_2D, specularMap);
  
-        // render the cube
-        // glBindVertexArray(objectVAO);
-        // glDrawArrays(GL_TRIANGLES, 0, 36);
 
         // render containers
         glBindVertexArray(objectVAO);
@@ -251,16 +253,16 @@ int main()
         }
 
         // also draw the lamp object
-        // lightShader.use();
-        // lightShader.setMat4("projection", projection);
-        // lightShader.setMat4("view", view);
-        // model = glm::mat4(1.0f);
-        // model = glm::translate(model, lightPos);
-        // model = glm::scale(model, glm::vec3(0.2f)); // a smaller cube
-        // lightShader.setMat4("model", model);
+        lightShader.use();
+        lightShader.setMat4("projection", projection);
+        lightShader.setMat4("view", view);
+        model = glm::mat4(1.0f);
+        model = glm::translate(model, lightPos);
+        model = glm::scale(model, glm::vec3(0.2f)); // a smaller cube
+        lightShader.setMat4("model", model);
 
-        // glBindVertexArray(lightVAO);
-        // glDrawArrays(GL_TRIANGLES, 0, 36);
+        glBindVertexArray(lightVAO);
+        glDrawArrays(GL_TRIANGLES, 0, 36);
 
         // glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
         // -------------------------------------------------------------------------------
