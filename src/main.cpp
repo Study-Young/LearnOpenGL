@@ -77,7 +77,6 @@ int main()
     // configure global opengl state
     // -----------------------------
     glEnable(GL_DEPTH_TEST);
-    glEnable(GL_PROGRAM_POINT_SIZE);
 
     // build and compile shaders
     // -------------------------
@@ -172,7 +171,7 @@ int main()
         shader.setVec3("cameraPos", camera.Position);
 
         glBindVertexArray(VAO);
-        glDrawArrays(GL_POINTS, 0, 36);
+        glDrawArrays(GL_TRIANGLES, 0, 36);
         glBindVertexArray(0);
         
         // glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
