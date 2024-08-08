@@ -71,20 +71,20 @@ int main()
         return -1;
     }
 
-    // tell stb_image.h to flip loaded texture's on the y-axis (before loading model).
-    // stbi_set_flip_vertically_on_load(true);
-
     // configure global opengl state
     // -----------------------------
     glEnable(GL_DEPTH_TEST);
 
     // build and compile shaders
     // -------------------------
-    Shader shader("src/shaderfile/shader.vs", "src/shaderfile/shader.fs", "src/shaderfile/shader.gs");
+    Shader shader("src/shaderfile/objectShader.vs", "src/shaderfile/objectShader.fs");
+    Shader normalShader("src/shaderfile/shader.vs", "src/shaderfile/shader.fs", "src/shaderfile/shader.gs");
 
     // load models
     // -----------
-    Model nanosuit("resources/object/nanosuit/nanosuit.obj"); 
+    stbi_set_flip_vertically_on_load(true);
+    // Model nanosuit("resources/object/nanosuit/nanosuit.obj"); 
+    Model backpack("resources/object/backpack/backpack.obj");
 
     // render loop
     // -----------
@@ -114,11 +114,18 @@ int main()
         shader.setMat4("view", view);
         shader.setMat4("model", model);
 
-        // add time component to geometry shader in the form of a uniform
-        shader.setFloat("time", static_cast<float>(glfwGetTime()));
-
         // draw model
-        nanosuit.Draw(shader);
+        backpack.Draw(shader);
+
+        // then draw model with normal visualizing geometry shader
+        normalShader.use();
+        normalShader.setMat4("projection", projection);
+        normalShader.setMat4("view", view);
+        normalShader.setMat4("model", model);
+
+        backpack.Draw(normalShader);
+
+
         // glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
         // -------------------------------------------------------------------------------
         glfwSwapBuffers(window);
