@@ -84,6 +84,10 @@ int main()
     unsigned int diffuseMap = loadTexture("resources/textures/bricks2.jpg");
     unsigned int normalMap  = loadTexture("resources/textures/bricks2_normal.jpg");
     unsigned int heightMap  = loadTexture("resources/textures/bricks2_disp.jpg");
+
+    // unsigned int diffuseMap = loadTexture("resources/textures/toy_box_diffuse.png");
+    // unsigned int normalMap = loadTexture("resources/textures/toy_box_normal.png");
+    // unsigned int heightMap = loadTexture("resources/textures/toy_box_disp.png");
   
     // shader configuration
     // --------------------
